@@ -8,7 +8,10 @@ import { minicart } from '../store';
       class="flex justify-between items-center py-5 bg-white max-w-container w-container mx-auto"
     >
       <span class="font-bold">FlasKommerce</span>
-      <button class="p-2" @click="minicart.toggleOpen">
+      <button
+        class="p-2 hover:scale-125 duration-100"
+        @click="minicart.toggleOpen"
+      >
         <img src="../assets/basket.svg" alt="Carrinho" />
       </button>
     </div>
