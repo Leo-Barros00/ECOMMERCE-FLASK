@@ -1,8 +1,13 @@
-from flask import Flask
 import os
 import importlib
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from app.database.utils import getDataBaseConnectionString
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = getDataBaseConnectionString()
+
+db = SQLAlchemy(app)
 
 @app.route("/health")
 def hello_world():
