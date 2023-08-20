@@ -19,7 +19,7 @@ import { minicart } from '../store';
     <div class="flex justify-between items-center">
       <span class="text-2xl font-semibold">Carrinho</span>
       <button class="hover:scale-125 duration-100" @click="minicart.toggleOpen">
-        <img src="../assets/close.svg" alt="Fechar carrinho" class="w-9 p-2" />
+        <CloseIcon class="w-9 h-9 p-2" />
       </button>
     </div>
     <div>

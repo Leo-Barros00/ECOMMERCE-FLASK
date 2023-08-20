@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { minicart } from '../store';
+import BasketIcon from './BasketIcon.vue';
 </script>
 
 <template>
@@ -12,7 +13,7 @@ import { minicart } from '../store';
         class="p-2 hover:scale-125 duration-100"
         @click="minicart.toggleOpen"
       >
-        <img src="../assets/basket.svg" alt="Carrinho" />
+        <basket-icon class="fill-white" />
       </button>
     </div>
     <div class="flex py-2 bg-emerald-300">
