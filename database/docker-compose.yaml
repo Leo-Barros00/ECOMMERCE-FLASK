@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   database:
-    container_name: database
+    container_name: database-ef
     hostname: databasehostname
     image: postgres:13
     volumes:
@@ -15,7 +15,7 @@ services:
       - ${DATABASE_PORT}:5432
 
   pgadmin:
-    container_name: pgadmin4
+    container_name: pgadmin4-ef
     image: dpage/pgadmin4
     restart: always
     depends_on:
