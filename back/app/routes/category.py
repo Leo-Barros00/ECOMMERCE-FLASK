@@ -26,6 +26,19 @@ def get_category_by_id(category_id):
 
   return {**category.to_dict(), 'productCount': product_count}
 
+@app.route('/categories/slug/<string:slug>', methods=['GET'])
+def get_category_by_slug(slug):
+  category, product_count = (db.session.query(Category, func.count(Product.id).label('product_count'))
+    .outerjoin(Product)
+    .filter(Category.slug == slug)
+    .group_by(Category.id)
+    .first() or (None, 0))
+    
+  if not category:
+    abort(404)
+
+  return {**category.to_dict(), 'productCount': product_count}
+
 @app.route("/categories", methods=['POST'])
 def category_post():
   data = request.json
