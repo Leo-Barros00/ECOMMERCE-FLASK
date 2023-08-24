@@ -2,7 +2,7 @@ from flask import request, jsonify, abort
 from app import app, db
 from app.models import Product
 
-@app.route("/product")
+@app.route("/products")
 def get_all_products():
   products = Product.query.all()
   return jsonify([product.to_dict() for product in products])
@@ -14,7 +14,7 @@ def get_product_by_id(product_id):
     abort(404) 
   return jsonify(product.to_dict())
 
-@app.route("/product", methods=['POST'])
+@app.route("/products", methods=['POST'])
 def product_post():
   data = request.json
   name = data['name']
