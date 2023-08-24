@@ -3,6 +3,7 @@ import DefaultLayout from './layouts/DefaultLayout.vue';
 import AdminLayout from './layouts/AdminLayout.vue';
 
 import Home from './pages/Home.vue';
+import Categories from './pages/Categories.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -11,6 +12,15 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '',
+        component: Home
+      },
+      {
+        path: 'categories',
+        component: Categories,
+        meta: { title: 'Categorias' }
+      },
+      {
+        path: ':categorySlug',
         component: Home
       }
     ]
@@ -21,7 +31,8 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '',
-        component: Home
+        component: Home,
+        meta: { title: 'Painel administrativo' }
       }
     ]
   }
@@ -30,4 +41,14 @@ const routes: RouteRecordRaw[] = [
 export const router = createRouter({
   history: createWebHistory(),
   routes
+});
+
+router.beforeEach((to, _, next) => {
+  const hasDefaultTitle = to.meta && to.meta.title;
+  if (hasDefaultTitle) {
+    document.title = `FlasKommerce - ${to.meta.title}`;
+  } else {
+    document.title = 'FlasKommerce';
+  }
+  next();
 });
