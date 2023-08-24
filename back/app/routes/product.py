@@ -20,7 +20,8 @@ def product_post():
   name = data['name']
   description = data['description']
   price = data['price']
-  new_product = Product(name=name, description=description, price=price, stock_quantity=0)
+  category_id = data['category_id']
+  new_product = Product(name=name, description=description, price=price, stock_quantity=0, category_id=category_id)
   db.session.add(new_product)
   db.session.commit()
   return jsonify(new_product.to_dict()), 201

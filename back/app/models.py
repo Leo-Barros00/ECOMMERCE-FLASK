@@ -17,7 +17,8 @@ class Product(db.Model):
       'description': self.description,
       'price': self.price,
       'image_url': self.image_url,
-      'stock_quantity': self.stock_quantity
+      'stock_quantity': self.stock_quantity,
+      'category': self.category_id
     }
   
 class Category(db.Model):
