@@ -24,11 +24,12 @@ class Product(db.Model):
 class Category(db.Model):
   id = db.Column(db.String, primary_key=True, default=lambda: str(uuid.uuid4()))
   name = db.Column(db.String(80), nullable=False)
+  slug = db.Column(db.String(80), nullable=False)
   products = db.relationship('Product', backref='category')
  
-
   def to_dict(self):
     return {
       'id': self.id,
       'name': self.name,
+      'slug': self.slug
     }
