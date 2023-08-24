@@ -1,7 +1,7 @@
-import { reactive } from "vue";
+import { reactive } from 'vue';
 
 export default reactive({
-  isOpen: true,
+  isOpen: false,
   toggleOpen() {
     this.isOpen = !this.isOpen;
   }
