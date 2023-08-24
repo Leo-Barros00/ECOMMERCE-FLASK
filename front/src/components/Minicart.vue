@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { minicart } from '../store';
+import CloseIcon from './CloseIcon.vue';
 </script>
 
 <template>
