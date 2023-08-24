@@ -30,7 +30,7 @@ class Product(db.Model):
 class Category(db.Model):
   id = db.Column(db.String, primary_key=True, default=lambda: str(uuid.uuid4()))
   name = db.Column(db.String(80), nullable=False)
-  slug = db.Column(db.String(80), nullable=False)
+  slug = db.Column(db.String(80), nullable=False, unique=True)
   products = db.relationship('Product', backref='category')
   created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
   updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
