@@ -11,7 +11,7 @@ def get_all_categories():
       .group_by(Category.id) \
       .all()
 
-  return [{**category.to_dict(), 'product_count': product_count} for category, product_count in category_results]
+  return [{**category.to_dict(), 'productCount': product_count} for category, product_count in category_results]
 
 @app.route('/categories/<string:category_id>', methods=['GET'])
 def get_category_by_id(category_id):
@@ -24,7 +24,7 @@ def get_category_by_id(category_id):
   if not category:
     abort(404)
 
-  return {**category.to_dict(), 'product_count': product_count}
+  return {**category.to_dict(), 'productCount': product_count}
 
 @app.route("/categories", methods=['POST'])
 def category_post():
