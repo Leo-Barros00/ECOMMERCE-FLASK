@@ -1,17 +1,37 @@
 from flask import abort, jsonify, request
+from sqlalchemy import func
 from app import app, db
 from app.models import Category, Product
+from app.utils.string import slugify
 
 @app.route("/categories")
 def get_all_categories():
-  categories = Category.query.all()
-  return jsonify([category.to_dict() for category in categories])
+  category_results = db.session.query(Category, func.count(Product.id).label('product_count')) \
+      .outerjoin(Product) \
+      .group_by(Category.id) \
+      .all()
+
+  return [{**category.to_dict(), 'product_count': product_count} for category, product_count in category_results]
+
+@app.route('/categories/<string:category_id>', methods=['GET'])
+def get_category_by_id(category_id):
+  category, product_count = (db.session.query(Category, func.count(Product.id).label('product_count'))
+    .outerjoin(Product)
+    .filter(Category.id == category_id)
+    .group_by(Category.id)
+    .first() or (None, 0))
+    
+  if not category:
+    abort(404)
+
+  return {**category.to_dict(), 'product_count': product_count}
 
 @app.route("/categories", methods=['POST'])
 def category_post():
   data = request.json
   name = data['name']
-  new_category = Category(name=name)
+  slug = slugify(name)
+  new_category = Category(name=name, slug=slug)
   db.session.add(new_category)
   db.session.commit()
   return jsonify(new_category.to_dict()), 201
@@ -25,7 +45,8 @@ def category_put(category_id):
 
   data = request.json
   name = data['name']
-  new_category = Category(name=name)
+  slug = slugify(name)
+  new_category = Category(name=name, slug=slug)
   db.session.add(new_category)
   db.session.commit()
   return jsonify(new_category.to_dict()), 201
