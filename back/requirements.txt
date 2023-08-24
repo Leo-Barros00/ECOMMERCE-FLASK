@@ -3,3 +3,4 @@ Flask-SQLAlchemy
 python-decouple
 psycopg2-binary
 unidecode
+Flask-CORS
