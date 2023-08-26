@@ -55,3 +55,18 @@ class Cart(db.Model):
       'createdAt': formatDateISO(self.created_at),
       'updatedAt': formatDateISO(self.updated_at),
     }
+
+class Order(db.Model):
+  id = db.Column(db.String, primary_key=True, default=lambda: str(uuid.uuid4()))  
+  date_time = db.Column(db.DateTime(timezone=True), server_default=func.now())
+  address = db.Column(db.Text, nullable=True)
+  status = db.Column(db.boolean, nullable=False, unique=True) 
+  
+ 
+  def to_dict(self):
+    return {
+      'id': self.id,
+      'address': self.address,
+      'status': self.status,
+      'date_time': formatDateISO(self.created_at),      
+    }
