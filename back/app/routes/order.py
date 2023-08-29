@@ -17,12 +17,15 @@ def get_order_by_id(order_id):
 @app.route("/orders", methods=['POST'])
 def order_post():
   data = request.json
-  name = data['name']
+
   address = data['address']  
-  order_id = data['order_id']
-  new_order = Order(name=name, address=address, order_id=order_id)
+  status = data['status']  
+
+  new_order = Order(status=status, address=address)
+
   db.session.add(new_order)
   db.session.commit()
+  
   return jsonify(new_order.to_dict()), 201
 
 @app.route('/orders/<string:order_id>', methods=['PUT'])
@@ -33,10 +36,10 @@ def update_order(order_id):
     abort(404)
 
   data = request.json
-  if 'name' in data:
-    order.name = data['name']
+  if 'status' in data:
+    order.status = data['status']
   if 'address' in data:
-    order.price = data['address']
+    order.address = data['address']
 
   db.session.commit()
   
