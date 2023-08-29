@@ -1,11 +1,27 @@
 <script setup lang="ts">
 import PageTitle from '../components/PageTitle.vue';
+import Subtitle from '../components/Subtitle.vue';
+import { Category } from '../types/Category';
 </script>
 
 <template>
   <div class="max-w-container w-container mx-auto my-6">
     <PageTitle>Categorias</PageTitle>
-    <h2>{{ categories }}</h2>
+
+    <div class="flex mt-8">
+      <div
+        class="grid grid-cols-1 gap-4"
+        v-if="categories && categories.length > 0"
+      >
+        <template v-for="category in categories" :key="index">
+          <router-link :to="'/' + category.slug">
+            <Subtitle>{{
+              category.name + ' (' + category.productCount + ')'
+            }}</Subtitle>
+          </router-link>
+        </template>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -14,7 +30,7 @@ export default {
   name: 'Categories',
   data() {
     return {
-      categories: []
+      categories: [] as Category[]
     };
   },
   methods: {
