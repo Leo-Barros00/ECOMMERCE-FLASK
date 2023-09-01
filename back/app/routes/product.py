@@ -16,7 +16,7 @@ def get_product_by_id(product_id):
 
 @app.route("/products", methods=['POST'])
 def product_post():
-  data = request.json
+  data = request.form
   name = data['name']
   description = data['description']
   price = data['price']
@@ -24,6 +24,11 @@ def product_post():
   new_product = Product(name=name, description=description, price=price, stock_quantity=0, category_id=category_id)
   db.session.add(new_product)
   db.session.commit()
+  image_file = request.files['image']
+  if image_file.filename == '':
+    return "No selected image", 400
+  
+  image_file.save('./app/images/' + image_file.filename)
   return jsonify(new_product.to_dict()), 201
 
 @app.route('/products/<string:product_id>', methods=['PUT'])

@@ -7,9 +7,9 @@ def get_all_orders():
   orders = Order.query.all()
   return jsonify([order.to_dict() for order in orders])
 
-@app.route('/oders/<string:oder_id>', methods=['GET'])
+@app.route('/orders/<string:order_id>', methods=['GET'])
 def get_order_by_id(order_id):
-  order = Order.query.get(order)
+  order = Order.query.get(order_id)
   if order is None:
     abort(404) 
   return jsonify(order.to_dict())
