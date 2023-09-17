@@ -2,8 +2,12 @@ import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
 import DefaultLayout from './layouts/DefaultLayout.vue';
 import AdminLayout from './layouts/AdminLayout.vue';
 
+// Normal Pages
 import Home from './pages/Home.vue';
 import Categories from './pages/Categories.vue';
+
+// Admin Pages
+import Products from './pages/admin/Products.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -30,9 +34,9 @@ const routes: RouteRecordRaw[] = [
     component: AdminLayout,
     children: [
       {
-        path: '',
-        component: Home,
-        meta: { title: 'Painel administrativo' }
+        path: 'products',
+        component: Products,
+        meta: { title: 'Painel administrativo - Produtos' }
       }
     ]
   }
@@ -46,7 +50,7 @@ export const router = createRouter({
 router.beforeEach((to, _, next) => {
   const hasDefaultTitle = to.meta && to.meta.title;
   if (hasDefaultTitle) {
-    document.title = `FlasKommerce - ${to.meta.title}`;
+    document.title = `FlasKommerce | ${to.meta.title}`;
   } else {
     document.title = 'FlasKommerce';
   }
