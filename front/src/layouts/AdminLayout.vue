@@ -1,7 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AdminNav from '../components/AdminNav.vue';
+</script>
 
 <template>
-  <div>
-    <router-view></router-view>
-  </div>
+  <AdminNav />
+  <router-view></router-view>
 </template>
