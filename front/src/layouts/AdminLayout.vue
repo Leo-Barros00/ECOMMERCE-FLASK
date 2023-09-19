@@ -3,6 +3,8 @@ import AdminNav from '../components/AdminNav.vue';
 </script>
 
 <template>
-  <AdminNav />
-  <router-view></router-view>
+  <div class="flex h-full">
+    <AdminNav />
+    <router-view></router-view>
+  </div>
 </template>
