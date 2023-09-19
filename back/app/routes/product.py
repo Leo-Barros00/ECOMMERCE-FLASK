@@ -21,7 +21,8 @@ def product_post():
   description = data['description']
   price = data['price']
   category_id = data['category_id']
-  new_product = Product(name=name, description=description, price=price, stock_quantity=0, category_id=category_id)
+  stock_quantity = data['stock_quantity']
+  new_product = Product(name=name, description=description, price=price, stock_quantity=stock_quantity, category_id=category_id)
   db.session.add(new_product)
   db.session.commit()
   image_file = request.files['image']
@@ -38,7 +39,7 @@ def update_product(product_id):
   if product is None:
     abort(404)
 
-  data = request.json
+  data = request.form
   if 'name' in data:
     product.name = data['name']
   if 'price' in data:
@@ -47,8 +48,15 @@ def update_product(product_id):
     product.description = data['description']
   if 'stock_quantity' in data:
     product.stock_quantity = data['stock_quantity']
+  if 'category_id' in data:
+    product.category_id = data['category_id']
 
   db.session.commit()
+
+  # if request.files['image']:
+  #   image_file = request.files['image']
+  #   if image_file.filename != '':
+  #     image_file.save('./app/images/' + image_file.filename)
   
   return jsonify(product.to_dict()), 200
 
