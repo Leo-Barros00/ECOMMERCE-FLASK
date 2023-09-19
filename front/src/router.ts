@@ -8,6 +8,8 @@ import Categories from './pages/Categories.vue';
 
 // Admin Pages
 import Products from './pages/admin/Products.vue';
+import AdminCategories from './pages/admin/Categories.vue';
+import Orders from './pages/admin/Orders.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -32,11 +34,22 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/admin',
     component: AdminLayout,
+    meta: { title: 'Painel administrativo' },
     children: [
       {
         path: 'products',
         component: Products,
         meta: { title: 'Painel administrativo - Produtos' }
+      },
+      {
+        path: 'categories',
+        component: AdminCategories,
+        meta: { title: 'Painel administrativo - Categorias' }
+      },
+      {
+        path: 'orders',
+        component: Orders,
+        meta: { title: 'Painel administrativo - Pedidos' }
       }
     ]
   }
