@@ -57,10 +57,22 @@ def category_put(category_id):
     abort(404)
 
   data = request.json
-  name = data['name']
-  slug = slugify(name)
-  new_category = Category(name=name, slug=slug)
-  db.session.add(new_category)
+  if 'name' in data:
+    category.name = data['name']
+    category.slug = slugify(data['name'])
+  
   db.session.commit()
-  return jsonify(new_category.to_dict()), 201
+  return jsonify(category.to_dict()), 201
+
+@app.route("/categories/<string:category_id>", methods=['DELETE'])
+def category_delete(category_id):
+  category = Category.query.get(category_id)
+  
+  if category is None:
+    abort(404)
+
+  db.session.delete(category)
+  db.session.commit()
+  
+  return '', 204
 
