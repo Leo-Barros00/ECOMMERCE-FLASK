@@ -10,6 +10,7 @@ import Categories from './pages/Categories.vue';
 import Products from './pages/admin/Products.vue';
 import AdminCategories from './pages/admin/Categories.vue';
 import Orders from './pages/admin/Orders.vue';
+import CategoryVue from './pages/Category.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -27,7 +28,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: ':categorySlug',
-        component: Home
+        component: CategoryVue
       }
     ]
   },

@@ -232,6 +232,7 @@ function resetForm() {
             ref="imageInput"
             class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-slate-300 file:text-slate-700 hover:file:bg-slate-500 hover:file:text-white pointer"
             :required="!formData.category_id"
+            accept=".png, .jpg, .jpeg"
         /></label>
 
         <div class="flex justify-end gap-2">

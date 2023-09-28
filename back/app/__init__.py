@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from app.database.utils import getDataBaseConnectionString
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = getDataBaseConnectionString()
 

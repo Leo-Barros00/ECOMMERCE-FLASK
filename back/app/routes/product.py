@@ -1,11 +1,16 @@
-from flask import request, jsonify, abort
+from flask import request, jsonify, abort, send_from_directory
 from app import app, db
 from app.models import Product
+import os
 
 @app.route("/products")
 def get_all_products():
   products = Product.query.all()
   return jsonify([product.to_dict() for product in products])
+
+@app.route('/products/images/<string:filename>')
+def serve_image(filename):
+    return send_from_directory('static', filename)
 
 @app.route('/products/<string:product_id>', methods=['GET'])
 def get_product_by_id(product_id):
@@ -22,14 +27,25 @@ def product_post():
   price = data['price']
   category_id = data['category_id']
   stock_quantity = data['stock_quantity']
+
+
   new_product = Product(name=name, description=description, price=price, stock_quantity=stock_quantity, category_id=category_id)
+
+
   db.session.add(new_product)
   db.session.commit()
   image_file = request.files['image']
   if image_file.filename == '':
     return "No selected image", 400
   
-  image_file.save('./app/images/' + image_file.filename)
+  _, file_extension = os.path.splitext(image_file.filename)
+
+  new_filename = new_product.id + file_extension
+  image_file.save('./app/static/' + new_filename)
+
+  new_product.image_url = '/static/' + new_filename
+  db.session.commit()
+
   return jsonify(new_product.to_dict()), 201
 
 @app.route('/products/<string:product_id>', methods=['PUT'])
