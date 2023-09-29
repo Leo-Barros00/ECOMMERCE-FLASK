@@ -1,6 +1,6 @@
-from flask import request, jsonify, abort, send_from_directory
+from flask import request, jsonify, abort
 from app import app, db
-from app.models import Product
+from app.models import Order, OrderProducts, Product
 import os
 
 @app.route("/products")
@@ -8,9 +8,6 @@ def get_all_products():
   products = Product.query.all()
   return jsonify([product.to_dict() for product in products])
 
-@app.route('/products/images/<string:filename>')
-def serve_image(filename):
-    return send_from_directory('static', filename)
 
 @app.route('/products/<string:product_id>', methods=['GET'])
 def get_product_by_id(product_id):
@@ -28,9 +25,7 @@ def product_post():
   category_id = data['category_id']
   stock_quantity = data['stock_quantity']
 
-
   new_product = Product(name=name, description=description, price=price, stock_quantity=stock_quantity, category_id=category_id)
-
 
   db.session.add(new_product)
   db.session.commit()
@@ -47,6 +42,28 @@ def product_post():
   db.session.commit()
 
   return jsonify(new_product.to_dict()), 201
+
+@app.route("/products/order", methods=['POST'])
+def product_order_post():
+  data = request.json
+  address = data['address']  
+  status = data['status']  
+
+  if 'products' in data and isinstance(data['products'], list):
+    products = data['products']
+  else:
+    return "Invalid list of products", 400
+
+  for prod in products:
+    new_order = Order(status=status, address=address)
+    db.session.add(new_order)
+    db.session.commit()
+    association = OrderProducts.insert().values(product_id=prod['id'], order_id=new_order.id, quantity=prod['quantity'])
+    db.session.execute(association)
+    db.session.commit()
+
+  
+  return '', 201
 
 @app.route('/products/<string:product_id>', methods=['PUT'])
 def update_product(product_id):
@@ -68,11 +85,6 @@ def update_product(product_id):
     product.category_id = data['category_id']
 
   db.session.commit()
-
-  # if request.files['image']:
-  #   image_file = request.files['image']
-  #   if image_file.filename != '':
-  #     image_file.save('./app/images/' + image_file.filename)
   
   return jsonify(product.to_dict()), 200
 
