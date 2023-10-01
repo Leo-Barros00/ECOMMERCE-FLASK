@@ -2,6 +2,10 @@
 import { minicart } from '../store';
 import BasketIcon from './BasketIcon.vue';
 import MenuIcon from './MenuIcon.vue';
+
+function getMinicartTotalItems() {
+  return minicart.products.reduce((pv, { quantity }) => pv + quantity, 0);
+}
 </script>
 
 <template>
@@ -13,10 +17,16 @@ import MenuIcon from './MenuIcon.vue';
         ><span class="font-bold text-2xl">FlasKommerce</span></router-link
       >
       <button
-        class="p-2 hover:scale-125 duration-100"
+        class="p-2 hover:scale-125 duration-100 relative"
         @click="minicart.toggleOpen"
       >
         <basket-icon class="fill-white" />
+        <div
+          v-if="getMinicartTotalItems() > 0"
+          class="absolute bg-black aspect-square rounded-full text-xs w-4 h-4 right-0 top-0"
+        >
+          {{ getMinicartTotalItems() }}
+        </div>
       </button>
     </div>
     <div class="flex bg-secondary text-white text-lg font-medium">
