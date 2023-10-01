@@ -11,6 +11,7 @@ import Products from './pages/admin/Products.vue';
 import AdminCategories from './pages/admin/Categories.vue';
 import Orders from './pages/admin/Orders.vue';
 import CategoryVue from './pages/Category.vue';
+import ProductVue from './pages/Product.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -29,6 +30,10 @@ const routes: RouteRecordRaw[] = [
       {
         path: ':categorySlug',
         component: CategoryVue
+      },
+      {
+        path: ':categorySlug/:productId',
+        component: ProductVue
       }
     ]
   },
