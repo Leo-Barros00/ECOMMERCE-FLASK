@@ -12,24 +12,4 @@ const api = axios.create({
   baseURL: `${HOST}:${PORT}`
 });
 
-// api.interceptors.response.use(
-//   (response: AxiosResponse) => response,
-//   ({ response, message }: AxiosError) => {
-//     let error: RequisitionError
-
-//     if (!response) {
-//       error = {
-//         message,
-//       }
-//     } else {
-//       error = {
-//         message: (response.data as any).message,
-//         status: response.status,
-//       }
-//     }
-
-//     return Promise.reject(error)
-//   },
-// )
-
 export { api };
