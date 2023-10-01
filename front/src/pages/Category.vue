@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import PageTitle from '../components/PageTitle.vue';
-import { api } from '../api';
+import { HOST, PORT, api } from '../api';
 import { useRoute } from 'vue-router';
 import { formatCurrency } from '../utils/currency';
 
@@ -24,7 +24,7 @@ onMounted(async () => {
         <router-link :to="'/' + category.slug + '/' + product.id">
           <div class="p-4 rounded-sm shadow-md">
             <img
-              :src="`http://127.0.0.1:5000${product.imageUrl}`"
+              :src="`${HOST}:${PORT}${product.imageUrl}`"
               class="h-40 mx-auto object-contain"
             />
             <div class="flex flex-col">
