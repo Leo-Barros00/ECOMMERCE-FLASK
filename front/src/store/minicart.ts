@@ -9,7 +9,6 @@ export default reactive({
   address: '',
   email: '',
   addProduct(product: any) {
-    console.log({ product });
     const existingProduct = this.products.find(({ id }) => id === product.id);
 
     if (existingProduct) {
