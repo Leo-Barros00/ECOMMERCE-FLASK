@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { HOST, PORT } from '../api';
 import PageTitle from '../components/PageTitle.vue';
 import Subtitle from '../components/Subtitle.vue';
 import { Category } from '../types/Category';
@@ -36,7 +37,7 @@ export default {
   methods: {
     async getCategories() {
       try {
-        const response = await fetch('http://127.0.0.1:5000/categories', {
+        const response = await fetch(`${HOST}:${PORT}/categories`, {
           method: 'GET',
           headers: {
             accept: 'application/json'
