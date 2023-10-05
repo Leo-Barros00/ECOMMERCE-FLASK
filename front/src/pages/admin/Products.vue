@@ -4,7 +4,6 @@ import PageTitle from '../../components/PageTitle.vue';
 import EditIcon from '../../components/EditIcon.vue';
 import DeleteIcon from '../../components/DeleteIcon.vue';
 import { api } from '../../api';
-// import { formatDateTime } from '../../utils/date';
 import { formatCurrency } from '../../utils/currency';
 
 const formDataInitialValues = {
@@ -146,13 +145,6 @@ function resetForm() {
           <div>{{ product.stockQuantity }}</div>
           <div>{{ formatCurrency(product.price) }}</div>
           <div>{{ product.createdAt }}</div>
-          <!-- <div>
-            {{
-              formatDateTime(
-                new Date(product.createdAt.replace(/(\.\d{3})\d+/, '$1'))
-              )
-            }}
-          </div> -->
           <div class="flex justify-center gap-4">
             <button @click="() => handleOnClickEdit(product)">
               <EditIcon />
