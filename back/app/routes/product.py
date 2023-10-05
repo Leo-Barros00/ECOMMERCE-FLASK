@@ -47,6 +47,7 @@ def product_post():
 def product_order_post():
   data = request.json
   address = data['address']  
+  email = data['email']  
   status = data['status']  
 
   if 'products' in data and isinstance(data['products'], list):
@@ -55,7 +56,7 @@ def product_order_post():
     return "Invalid list of products", 400
 
   for prod in products:
-    new_order = Order(status=status, address=address)
+    new_order = Order(status=status, address=address, email=email)
     db.session.add(new_order)
     db.session.commit()
     association = OrderProducts.insert().values(product_id=prod['id'], order_id=new_order.id, quantity=prod['quantity'])

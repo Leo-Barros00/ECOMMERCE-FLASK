@@ -53,6 +53,7 @@ OrderProducts = db.Table('OrderProducts',
 
 class Order(db.Model):
   id = db.Column(db.String, primary_key=True, default=lambda: str(uuid.uuid4()))  
+  email = db.Column(db.String, nullable=False) 
   created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
   address = db.Column(db.Text, nullable=True)
   status = db.Column(db.String, nullable=False) 
@@ -61,6 +62,7 @@ class Order(db.Model):
   def to_dict(self):
     return {
       'id': self.id,
+      'email': self.email,
       'address': self.address,
       'status': self.status,
       'product': self.product,
