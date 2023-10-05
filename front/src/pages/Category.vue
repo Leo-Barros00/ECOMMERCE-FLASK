@@ -19,10 +19,10 @@ onMounted(async () => {
 <template>
   <div class="max-w-container w-container mx-auto my-6">
     <PageTitle v-if="category">{{ category.name }}</PageTitle>
-    <div v-if="category" class="grid grid-cols-4 my-10">
+    <div v-if="category" class="grid grid-cols-4 my-10 gap-4">
       <template v-for="product in category.products">
         <router-link :to="'/' + category.slug + '/' + product.id">
-          <div class="p-4 rounded-sm shadow-md">
+          <div class="p-4 rounded-sm shadow-md hover:shadow-xl duration-100">
             <img
               :src="`${HOST}:${PORT}${product.imageUrl}`"
               class="h-40 mx-auto object-contain"
