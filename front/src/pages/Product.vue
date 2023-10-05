@@ -33,7 +33,7 @@ function handleOnClickAddToCart() {
 <template>
   <div class="max-w-container w-container mx-auto my-6">
     <PageTitle>Produto</PageTitle>
-    <div class="grid grid-cols-2 gap-8" v-if="product">
+    <div class="mt-6 grid grid-cols-2 gap-8" v-if="product">
       <div>
         <img class="w-full" :src="`${HOST}:${PORT}${product.imageUrl}`" />
       </div>
